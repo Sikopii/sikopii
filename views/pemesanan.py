@@ -93,7 +93,7 @@ def show_cart_and_payment():
                 snap.pay('{snap_token}');
             }};
         </script>
-        """, height=300)
+        """, height=1000)
 
 # Main aplikasi
 def main():
