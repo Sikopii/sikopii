@@ -25,22 +25,31 @@ def add_order_item(order_id, product_id, quantity, sub_total):
 
 # Tampilkan produk kopi
 def show_products():
+    # Ambil daftar produk dari database Supabase
     products = get_products()
-    st.title("Pemesanan")
-    cart = {}
+    st.title(" Pemesanan ")
+
+    # Inisialisasi keranjang jika belum ada
+    if "cart" not in st.session_state:
+        st.session_state.cart = {}
 
     for p in products:
         st.image(p["image_url"], width=150)
         st.write(f"**{p['name']}**")
         st.write(p["description"])
         st.write(f"Rp {p['price']:,}")
-        qty = st.number_input(f"Jumlah ({p['name']})", min_value=0, max_value=10, key=p["id"])
+        qty = st.number_input(f"Jumlah ({p['name']})", min_value=0, max_value=10, key=f"qty_{p['id']}")
 
         if st.button(f"Tambah ke Keranjang", key=f"add_{p['id']}"):
             if qty > 0:
-                cart[p["id"]] = {"product": p, "qty": qty}
-                st.session_state.cart = cart
-                st.success(f"{p['name']} ditambahkan ke keranjang")
+                # Jika produk sudah ada, tambahkan jumlahnya
+                if p["id"] in st.session_state.cart:
+                    st.session_state.cart[p["id"]]["qty"] += qty
+                else:
+                    # Jika produk baru, tambahkan ke keranjang
+                    st.session_state.cart[p["id"]] = {"product": p, "qty": qty}
+                st.success(f"{qty} {p['name']} ditambahkan ke keranjang")
+
 
 # Halaman keranjang dan pembayaran
 def show_cart_and_payment():
@@ -51,11 +60,13 @@ def show_cart_and_payment():
 
     total = sum(item["product"]["price"] * item["qty"] for item in cart.values())
     st.write("### Keranjang Anda")
-    for item in cart.values():
+
+    for item_id, item in cart.items():
         st.write(f"{item['product']['name']} x{item['qty']} = Rp {item['product']['price'] * item['qty']:,}")
+
     st.write(f"**Total: Rp {total:,}**")
 
-    # Form alamat dan tombol bayar pada halaman yang sama
+    # Form alamat pada halaman yang sama
     st.write("### Alamat Pengiriman")
     address = st.text_area("Masukkan alamat lengkap Anda", placeholder="Jl. Kopi No. 1, Jakarta")
 
@@ -67,7 +78,7 @@ def show_cart_and_payment():
         # Buat order dengan alamat
         order = create_order(total, address)
 
-        # Simpan item pesanan ke database
+        # Simpan semua item pesanan ke database
         for item in cart.values():
             add_order_item(order["id"], item["product"]["id"], item["qty"], item["product"]["price"] * item["qty"])
 
@@ -82,7 +93,7 @@ def show_cart_and_payment():
                 snap.pay('{snap_token}');
             }};
         </script>
-        """, height=1000)
+        """, height=300)
 
 # Main aplikasi
 def main():
@@ -92,6 +103,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
