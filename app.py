@@ -50,7 +50,7 @@ def main_app(user_email):
         )
         
         pemesanan_page = st.Page(
-            "views/Pemesanan.py",
+            "views/pemesanan.py",
             title="Pemesanan",
             icon=":material/smart_toy:",
         )
