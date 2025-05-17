@@ -1,0 +1,7 @@
+midtransclient==1.4.2
+Pillow==11.2.1
+python-dotenv==1.1.0
+Requests==2.32.3
+streamlit==1.37.1
+streamlit==1.45.0
+supabase==2.15.1
