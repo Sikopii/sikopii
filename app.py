@@ -83,7 +83,7 @@ def auth_screen():
     if option == "Buat Akun" and st.button("Daftar"):
         user = sign_up(email, password)
         if user and user.user:
-            st.success("Pendaftaran Berhasil. Silahkan Masuk.")
+            st.success("Pendaftaran Berhasil. Cek Email Anda.")
 
     if option == "Masuk" and st.button("Masuk"):
         user = sign_in(email, password)
