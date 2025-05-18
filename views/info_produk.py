@@ -7,9 +7,6 @@ from PIL import Image  # pip install pillow
 # --- PATH SETTINGS ---
 THIS_DIR = Path(__file__).parent if "__file__" in locals() else Path.cwd()
 ASSETS_DIR = THIS_DIR / "assets"
-STYLES_DIR = THIS_DIR / "styles"
-CSS_FILE = STYLES_DIR / "main.css"
-
 
 # --- GENERAL SETTINGS ---
 CONTACT_EMAIL = "caisarmaldinianwar@gmail.com"
