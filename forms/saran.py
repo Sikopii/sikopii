@@ -40,7 +40,8 @@ def saran_form():
             st.error("Tuliskan Saran anda.", icon="💬")
             st.stop()
 
-        # Prepare the data payload and send it to the specified webhook URL
+        # Webhook
+    
          data = {"email": email, "name": name, "message": message}
          response = requests.post(WEBHOOK_URL, json=data)
 
