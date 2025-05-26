@@ -3,11 +3,11 @@ from supabase_client import supabase
 from midtrans_client import create_transaction
 import os
 
-# Fungsi mendapatkan data produk
+# mendapatkan data produk
 def get_products():
     return supabase.table("products").select("*").execute().data
 
-# Fungsi membuat order
+# membuat order
 def create_order(total_amount, address):
     return supabase.table("orders").insert({
         "total_amount": total_amount,
