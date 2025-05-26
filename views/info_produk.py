@@ -11,7 +11,7 @@ ASSETS_DIR = THIS_DIR / "assets"
 # --- GENERAL SETTINGS ---
 CONTACT_EMAIL = "caisarmaldinianwar@gmail.com"
 PRODUCT_NAME = "Si Kopi"
-PRODUCT_TAGLINE = "Need Coffe?, Just contact si kopi? 🚀"
+PRODUCT_TAGLINE = "Need Coffe?, Just contact si kopi!"
 PRODUCT_DESCRIPTION = """
 Kelebihan dari Kopi Kami:
 
